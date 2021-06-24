@@ -30,7 +30,7 @@ LEBLManager is available under the MIT license. See the LICENSE file for more in
 
 
 ## How To Usage
-### initCBCentralManager
+#### initCBCentralManager
 ```objective-c
   if (LEManager.peripheral == nil && LEManager.vicePeripheral == nil){//主副设备都未建立链接 初始化CBCentralManager
         [LEManager initCBCentralManager];
@@ -39,7 +39,7 @@ LEBLManager is available under the MIT license. See the LICENSE file for more in
         [LEManager scanForPeripheralsWithServices:nil options:nil];
     }
 ```
-### CBManagerState
+#### CBManagerState
 ```objective-c
     LEManager.stateUpdateBlock = ^(CBCentralManager *  central){
         switch(central.state){
@@ -71,7 +71,7 @@ LEBLManager is available under the MIT license. See the LICENSE file for more in
         
     };
 ```
-### discoverPeripheral
+#### discoverPeripheral
 ```objective-c
     //发现蓝牙
     LEManager.discoverPeripheralBlock = ^(CBCentralManager * _Nonnull central, CBPeripheral * _Nonnull peripheral, NSDictionary * _Nonnull advertisementData, NSNumber * _Nonnull RSSI){
@@ -93,12 +93,12 @@ LEBLManager is available under the MIT license. See the LICENSE file for more in
     };
 ```
 
-### connectPeripheral
+#### connectPeripheral
 ```objective-c
     [LEManager connectPeripheral:peripheral options:nil];
 ```
 
-### discoverCharacteristicsBlock
+#### discoverCharacteristics
 ```objective-c
     //发现服务和特征
     LEManager.discoverCharacteristicsBlock = ^(CBPeripheral * _Nonnull peripheral, CBService * _Nonnull service, NSArray * _Nonnull characteristics, NSError * _Nonnull error){
@@ -141,7 +141,7 @@ LEBLManager is available under the MIT license. See the LICENSE file for more in
     };
 ```
 
-### readValueForCharacteristic
+#### readValueForCharacteristic
 ```objective-c
   //读取特征的报文数据
     LEManager.readValueForCharacteristicBlock = ^(CBPeripheral * _Nonnull peripheral, CBCharacteristic * _Nonnull characteristic, NSData * _Nonnull value, NSError * _Nonnull error, DEVICE_TYPE type){
@@ -158,7 +158,7 @@ LEBLManager is available under the MIT license. See the LICENSE file for more in
         
     };
 ```
-### CBManagerState
+#### writeValue
 ```objective-c
     //发送报文
      NSMutableData * writeData = [NSMutableData new];
