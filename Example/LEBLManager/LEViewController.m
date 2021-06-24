@@ -31,8 +31,7 @@
     
 }
 
-#pragma mark ============================================================== leon new manager
-//测试自己封装的蓝牙类
+//初始化CBCentralManager
 -(void)initCBCentralManager{
             
     if (LEManager.peripheral == nil && LEManager.vicePeripheral == nil){//主副设备都未建立链接 初始化CBCentralManager
@@ -160,7 +159,7 @@
     
 }
 
-//设置震动
+//发送报文
 - (void)testSendData:(DEVICE_TYPE)deviceType duration:(int)duration{
     
     //
