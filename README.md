@@ -1,4 +1,7 @@
 # LEBLManager
+可同时连接两台蓝牙外设
+
+用block回调的方式统一处理delegate数据
 
 [![CI Status](https://img.shields.io/travis/leonStraightMen/LEBLManager.svg?style=flat)](https://travis-ci.org/leonStraightMen/LEBLManager)
 [![Version](https://img.shields.io/cocoapods/v/LEBLManager.svg?style=flat)](https://cocoapods.org/pods/LEBLManager)
@@ -6,7 +9,6 @@
 [![Platform](https://img.shields.io/cocoapods/p/LEBLManager.svg?style=flat)](https://cocoapods.org/pods/LEBLManager)
 
 ## Example
-
 
 
 ## Requirements

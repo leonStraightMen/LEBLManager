@@ -72,6 +72,7 @@
     };
     
     //发现蓝牙
+    __weak typeof(self) weakSelf = self;
     LEManager.discoverPeripheralBlock = ^(CBCentralManager * _Nonnull central, CBPeripheral * _Nonnull peripheral, NSDictionary * _Nonnull advertisementData, NSNumber * _Nonnull RSSI){
         
         NSLog(@"扫描发现蓝牙设备advertisementData =  %@",advertisementData);
@@ -79,12 +80,12 @@
         if (peripheral.name.length>0&& [peripheral.name hasPrefix:@"耳机_first"]){
             
             LEManager.peripheral = peripheral;
-            [self connectBLEManagerData:peripheral deviceType:DEVICETYPE_MAIN];
+            [weakSelf connectBLEManagerData:peripheral deviceType:DEVICETYPE_MAIN];
             
         }else if (peripheral.name.length>0&& [peripheral.name hasPrefix:@"耳机_second"]){
             
             LEManager.vicePeripheral = peripheral;
-            [self connectBLEManagerData:peripheral deviceType:DEVICETYPE_VICE];
+            [weakSelf connectBLEManagerData:peripheral deviceType:DEVICETYPE_VICE];
 
         }
         
@@ -181,6 +182,7 @@
         NSLog(@"副设备 发送报文  %@", writeData);
         [LEManager writeValue:writeData forCharacteristic:LEManager.viceWrite writeType:CBCharacteristicWriteWithResponse deviceType:DEVICETYPE_VICE];
     }
+    
     
 }
 
