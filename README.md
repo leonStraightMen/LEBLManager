@@ -7,17 +7,40 @@
 
 ## Example
 
-用法示例
-//初始化CBCentralManager
--(void)initCBCentralManager{
-            
-    if (LEManager.peripheral == nil && LEManager.vicePeripheral == nil){//主副设备都未建立链接 初始化CBCentralManager
+
+
+## Requirements
+
+## Installation
+
+LEBLManager is available through [CocoaPods](https://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod 'LEBLManager'
+```
+
+## Author
+
+leonStraightMen, dengzf.ok@163.com
+
+## License
+
+LEBLManager is available under the MIT license. See the LICENSE file for more info.
+
+
+## How To Usage
+### initCBCentralManager
+```objective-c
+  if (LEManager.peripheral == nil && LEManager.vicePeripheral == nil){//主副设备都未建立链接 初始化CBCentralManager
         [LEManager initCBCentralManager];
         
     }else{//主/副设备有一个已经建立连接 直接开始扫描外设
         [LEManager scanForPeripheralsWithServices:nil options:nil];
     }
-    
+```
+### CBManagerState
+```objective-c
     LEManager.stateUpdateBlock = ^(CBCentralManager *  central){
         switch(central.state){
             case 0:
@@ -47,7 +70,9 @@
         }
         
     };
-    
+```
+### discoverPeripheral
+```objective-c
     //发现蓝牙
     LEManager.discoverPeripheralBlock = ^(CBCentralManager * _Nonnull central, CBPeripheral * _Nonnull peripheral, NSDictionary * _Nonnull advertisementData, NSNumber * _Nonnull RSSI){
         
@@ -66,14 +91,15 @@
         }
         
     };
+```
 
-}
-
-//链接主/副设备 + 绑定特征
--(void)connectBLEManagerData:(CBPeripheral*)peripheral deviceType:(DEVICE_TYPE)deviceType{
-    
-    //链接蓝牙 此时 LEManager.peripheral || LEManager.vicePeripheral 还未init
+### connectPeripheral
+```objective-c
     [LEManager connectPeripheral:peripheral options:nil];
+```
+
+### discoverCharacteristicsBlock
+```objective-c
     //发现服务和特征
     LEManager.discoverCharacteristicsBlock = ^(CBPeripheral * _Nonnull peripheral, CBService * _Nonnull service, NSArray * _Nonnull characteristics, NSError * _Nonnull error){
         
@@ -113,8 +139,11 @@
             }
         }
     };
-    
-    //读取特征的报文数据
+```
+
+### readValueForCharacteristic
+```objective-c
+  //读取特征的报文数据
     LEManager.readValueForCharacteristicBlock = ^(CBPeripheral * _Nonnull peripheral, CBCharacteristic * _Nonnull characteristic, NSData * _Nonnull value, NSError * _Nonnull error, DEVICE_TYPE type){
         
         if (deviceType==DEVICETYPE_MAIN){//主设备
@@ -128,18 +157,10 @@
         }
         
     };
-
-    //写入数据成功的回调
-    LEManager.writeToCharacteristicBlock = ^(CBPeripheral * _Nonnull peripheral,CBCharacteristic * _Nonnull characteristic, NSError * _Nonnull error, DEVICE_TYPE type){
-        
-    };
-    
-}
-
-//发送报文示例
-- (void)testSendData:(DEVICE_TYPE)deviceType duration:(int)duration{
-    
-    //
+```
+### CBManagerState
+```objective-c
+    //发送报文
      NSMutableData * writeData = [NSMutableData new];
      Byte header = 0xaa;
      Byte length = 0x05;
@@ -158,23 +179,5 @@
         NSLog(@"副设备 发送报文  %@", writeData);
         [LEManager writeValue:writeData forCharacteristic:LEManager.viceWrite writeType:CBCharacteristicWriteWithResponse deviceType:DEVICETYPE_VICE];
     }
-    
-}
-## Requirements
-
-## Installation
-
-LEBLManager is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod 'LEBLManager'
 ```
 
-## Author
-
-leonStraightMen, dengzf.ok@163.com
-
-## License
-
-LEBLManager is available under the MIT license. See the LICENSE file for more info.
