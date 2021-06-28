@@ -18,6 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
+同时连接两个蓝牙
 TODO: Add long description of the pod here.
                        DESC
 
